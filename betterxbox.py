@@ -8,7 +8,7 @@ import json
 import os
 from bs4 import BeautifulSoup
 
-BOT_TOKEN = '8991830245:AAGR_7t_XJ67hRU-OHh_kzpadWRnesucYAk'
+BOT_TOKEN = '8840379258:AAGrzlu21gyUwflAXshTnD9VheFgBJf5XyM'
 ADMIN_ID = 1451811772  # 👈 ضع هنا الـ Chat ID الخاص بيك أنت كصاحب المتجر
 bot = telebot.TeleBot(BOT_TOKEN)
 
