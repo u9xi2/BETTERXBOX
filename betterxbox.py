@@ -6,7 +6,7 @@ import sqlite3
 from playwright.async_api import async_playwright
 
 # --- التوكن والبيانات مالتك ---
-BOT_TOKEN = '8991830245:AAGJBL_rTcM_buhkDV-9GkpHKMZU7s17trA'
+BOT_TOKEN ='8991830245:AAFECOoZIICy5U4AYDuQSuJzDvBmWGx2xoo'
 ADMIN_ID = 1451811772
 bot = telebot.TeleBot(BOT_TOKEN)
 
