@@ -6,13 +6,9 @@ import sqlite3
 from playwright.async_api import async_playwright
 
 # --- التوكن والبيانات مالتك ---
-BOT_TOKEN ='8991830245:AAFECOoZIICy5U4AYDuQSuJzDvBmWGx2xoo'
+BOT_TOKEN = '8991830245:AAGJBL_rTcM_buhkDV-9GkpHKMZU7s17trA'
 ADMIN_ID = 1451811772
 bot = telebot.TeleBot(BOT_TOKEN)
-
-# رابط القناة للاشتراك الإجباري
-CHANNEL_URL = "https://t.me/A_ToolsX"
-CHANNEL_USERNAME = "@A_ToolsX"
 
 DB_FILE = 'database.db'
 
@@ -25,15 +21,6 @@ def init_db():
     conn.close()
 
 init_db()
-
-def check_membership(user_id):
-    try:
-        member = bot.get_chat_member(CHANNEL_USERNAME, user_id)
-        if member.status in ['member', 'administrator', 'creator']:
-            return True
-    except Exception as e:
-        print(f"خطأ في فحص القناة: {e}")
-    return False
 
 async def run_playwright_logic(device_code_text):
     async with async_playwright() as p:
@@ -52,23 +39,12 @@ async def run_playwright_logic(device_code_text):
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    chat_id = message.chat.id
-    if not check_membership(chat_id):
-        markup = telebot.types.InlineKeyboardMarkup()
-        btn = telebot.types.InlineKeyboardButton("اضغط هنا للاشتراك بقناتنا 🚀", url=CHANNEL_URL)
-        markup.add(btn)
-        bot.send_message(chat_id, f"🚀 لاستخدام هذا البوت، يجب عليك أولاً الاشتراك في قناتنا الرسمية:\n{CHANNEL_URL}", reply_markup=markup)
-        return
-    bot.reply_to(message, "👋 أهلاً بك في بوت تفعيل إكسبوكس المطور!\nيرجى إرسال كود الشراء أولاً لتفعيل صلاحياتك.")
+    bot.reply_to(message, "👋 أهلاً بك في بوت تفعيل إكسبوكس المطور!\n\nيرجى إرسال كود الشراء أولاً لتفعيل صلاحياتك والبدء بالتفعيل المباشر.")
 
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
     chat_id = message.chat.id
     text = message.text.strip()
-
-    if not check_membership(chat_id):
-        send_welcome(message)
-        return
 
     conn = sqlite3.connect(DB_FILE)
     cursor = conn.cursor()
@@ -135,5 +111,5 @@ def handle_message(message):
         
     conn.close()
 
-print("🤖 البوت الأصلي (Playwright Server) يعمل الآن على رندر...")
+print("🤖 البوت الأصلي يعمل الآن على رندر بدون أي اشتراك إجباري...")
 bot.polling(none_stop=True)
